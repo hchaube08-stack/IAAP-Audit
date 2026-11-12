@@ -1,48 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Manage projects, teams, tasks, modules, defects, links, and milestones." />
-    <title>Project Hub</title>
+    <meta name="description" content="Project overview and audit milestones for Tamilnad Mercantile Bank Limited." />
+    <title>TMB Audit Project</title>
     <link rel="stylesheet" href="styles.css" />
-    <style>
-      .project-filters{display:flex;align-items:end;gap:.75rem;margin:0 0 1rem}.search-field,.status-filter{display:flex;flex-direction:column;gap:.3rem;color:var(--muted);font-size:.85rem;font-weight:700}.search-field{flex:1;max-width:420px}.search-field input,.status-filter select,.field select{min-height:42px;padding:.55rem .7rem;border:1px solid var(--border);border-radius:.55rem;background:#fff;color:var(--text)}.project-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem}.project-card-top h2{margin:0}.project-progress{height:.55rem;background:#e8edf4;border-radius:99px;overflow:hidden}.project-progress span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--primary));border-radius:inherit}.progress-line{display:flex;justify-content:space-between;gap:.5rem;color:var(--muted);font-size:.84rem}.status-badge{display:inline-flex;padding:.22rem .6rem;border-radius:99px;background:#edf2f7;color:#405264;font-size:.75rem;font-weight:700;white-space:nowrap}.status-in-progress{background:#e4f0ff;color:#15539a}.status-on-hold{background:#fff2d6;color:#805600}.status-complete{background:#dff4ea;color:#206a4e}.project-card-owner{margin:.4rem 0;color:var(--muted);font-size:.9rem}.project-actions{display:flex;gap:.6rem;flex-wrap:wrap}.task-panel{grid-column:1/-1}.task-create-form{display:grid;grid-template-columns:1.2fr 1fr 1fr auto;align-items:end;gap:.7rem;margin:1rem 0}.task-create-form .field{font-size:.88rem}.task-list{display:grid;gap:.65rem;list-style:none;padding:0;margin:0}.task-row{display:grid;grid-template-columns:minmax(170px,1fr) minmax(120px,.7fr) minmax(140px,.8fr) auto;align-items:center;gap:.75rem;padding:.8rem;border:1px solid var(--border);border-radius:.7rem;background:#fbfcfe}.task-row-title{font-weight:700}.task-row small{display:block;color:var(--muted)}.task-row select{max-width:160px;padding:.45rem;border:1px solid var(--border);border-radius:.5rem;background:white}.task-row-actions{display:flex;gap:.35rem;justify-content:flex-end}.danger-text{color:var(--danger)}.status-filter{min-width:160px}.notice-error{color:#7f1d1d;background:var(--danger-soft);border-color:#efc8c5}.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}dialog{padding:0;color:var(--text);border:1px solid var(--border);border-radius:1rem;box-shadow:0 20px 70px rgba(14,32,55,.25)}dialog::backdrop{background:rgba(13,28,45,.48)}.dialog-form{display:flex;flex-direction:column;gap:1rem;min-width:min(92vw,480px);padding:1.25rem}.dialog-header{display:flex;align-items:center;justify-content:space-between;gap:1rem}.dialog-header h2{margin:0}.icon-btn{width:2.4rem;height:2.4rem;border:1px solid var(--border);border-radius:50%;background:#fff;font-size:1.3rem;cursor:pointer}.field{display:flex;flex-direction:column;gap:.4rem;font-weight:650}.field input,.field textarea,.field select{width:100%;min-height:44px;padding:.7rem .8rem;border:1px solid #bac7d5;border-radius:.55rem;background:white;color:var(--text);font:inherit}.field textarea{resize:vertical}.date-fields{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}.dialog-actions{display:flex;justify-content:flex-end;gap:.65rem}.muted{color:var(--muted)}.project-card{color:var(--text)}.import-label{cursor:pointer}.view-toggle{display:flex}.view-button.is-active{background:var(--primary);color:white}.file-note{font-size:.85rem;color:var(--muted)}
-      @media(max-width:850px){.task-create-form{grid-template-columns:1fr 1fr}.task-row{grid-template-columns:1fr 1fr}.task-row-actions{justify-content:flex-start}}@media(max-width:620px){.project-filters,.date-fields{display:flex;flex-direction:column;align-items:stretch}.task-create-form,.task-row{grid-template-columns:1fr}.task-row select{max-width:none}.dialog-form{min-width:min(94vw,480px)}}
-    </style>
+    <script src="script.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <header class="topbar"><a class="brand" href="#main-content" aria-label="Project Hub home"><span class="brand-mark" aria-hidden="true">PH</span><span><span class="eyebrow">Workspace</span><strong>Project Hub</strong></span></a><p class="storage-note">Projects are saved in this browser.</p></header>
+    <header class="topbar">
+      <a class="brand" href="#main-content" aria-label="TMB Audit project home">
+        <span class="brand-mark" aria-hidden="true">TMB</span>
+        <span><span class="eyebrow">Project workspace</span><strong>TMB Audit</strong></span>
+      </a>
+      <div class="view-controls" role="group" aria-label="Project display options">
+        <button type="button" class="view-button is-active" id="grid-view" aria-pressed="true">Grid view</button>
+        <button type="button" class="view-button" id="list-view" aria-pressed="false">List view</button>
+      </div>
+    </header>
+
     <main id="main-content" class="page-shell">
-      <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
-      <section id="projects-view" aria-labelledby="projects-title">
-        <div class="page-heading"><div><p class="eyebrow">Workspace</p><h1 id="projects-title">Projects</h1><p class="intro">Create projects and manage their people, tasks, modules, links, and milestones.</p></div><div class="heading-actions"><div class="view-toggle" role="group" aria-label="Project display options"><button type="button" class="view-button is-active" id="grid-view" aria-pressed="true">Grid view</button><button type="button" class="view-button" id="list-view" aria-pressed="false">List view</button></div><button type="button" class="secondary-btn" id="export-projects">Export JSON</button><button type="button" class="secondary-btn" id="export-csv">Export CSV</button><label class="secondary-btn import-label" for="import-projects">Import JSON</label><input id="import-projects" class="visually-hidden" type="file" accept="application/json,.json" /><button type="button" class="primary-btn" id="open-create-project">Create project</button></div></div>
-        <div class="project-filters"><label class="search-field">Search projects<input id="project-search" type="search" placeholder="Search by project name or owner" /></label><label class="status-filter">Status<select id="status-filter"><option value="all">All statuses</option><option value="planning">Planning</option><option value="in-progress">In progress</option><option value="on-hold">On hold</option><option value="complete">Complete</option></select></label></div>
-        <ul class="project-grid" id="project-list" aria-label="Projects"></ul><p class="empty-state panel" id="empty-projects">No projects yet. Select <strong>Create project</strong> to add one.</p><p class="empty-state panel" id="empty-filter-results" hidden>No projects match these filters.</p>
-      </section>
-      <section id="project-view" aria-labelledby="project-title" hidden>
-        <button type="button" class="back-button" id="back-to-projects">← All projects</button>
-        <div class="project-hero panel"><div><p class="eyebrow">Project</p><div class="project-title-row"><h1 id="project-title"></h1><span id="project-status" class="status-badge"></span></div><p class="date-range" id="project-dates"></p></div><div class="project-actions"><button type="button" class="secondary-btn" id="edit-project">Edit project</button><button type="button" class="danger-btn" id="delete-project">Delete project</button></div></div>
-        <div class="detail-grid">
-          <section class="panel detail-panel" aria-labelledby="team-title"><div class="section-heading"><div><p class="eyebrow">People</p><h2 id="team-title">Team</h2></div><button type="button" class="secondary-btn" id="add-resource">Add resource</button></div><ul class="chip-list" id="team-list"></ul><p class="muted empty-inline" id="empty-team">No team resources added.</p></section>
-          <section class="panel detail-panel" aria-labelledby="details-title"><div class="section-heading"><div><p class="eyebrow">Overview</p><h2 id="details-title">Project details</h2></div><button type="button" class="text-button" id="edit-details">Edit</button></div><p class="preserve-lines" id="details-content"></p><p class="muted empty-inline" id="empty-details">Add a short project overview.</p></section>
-          <section class="panel detail-panel task-panel" aria-labelledby="tasks-title"><div class="section-heading"><div><p class="eyebrow">Delivery</p><h2 id="tasks-title">Project tasks</h2></div><span class="muted" id="task-summary"></span></div><form id="task-form" class="task-create-form"><label class="field">Task name<input name="title" type="text" maxlength="160" placeholder="e.g. Complete keyboard audit" required /></label><label class="field">Owner<input name="owner" type="text" maxlength="100" placeholder="Assign a teammate" /></label><label class="field">Due date<input name="dueDate" type="date" /></label><button type="submit" class="primary-btn" id="create-task-button">Create task</button></form><ul class="task-list" id="task-list" aria-label="Project tasks"></ul><p class="muted empty-inline" id="empty-tasks">No tasks yet. Create the first project task.</p></section>
-          <section class="panel detail-panel wide-panel" aria-labelledby="modules-title"><div class="section-heading"><div><p class="eyebrow">Delivery scope</p><h2 id="modules-title">Modules &amp; submodules</h2></div><button type="button" class="secondary-btn" id="add-module">Add module</button></div><ul class="module-list" id="module-list"></ul><p class="muted empty-inline" id="empty-modules">No modules added.</p></section>
-          <section class="panel detail-panel wide-panel" aria-labelledby="defects-title"><div class="section-heading"><div><p class="eyebrow">Quality</p><h2 id="defects-title">Defect report</h2></div><button type="button" class="text-button" id="edit-defects">Edit</button></div><p class="preserve-lines" id="defects-content"></p><p class="muted empty-inline" id="empty-defects">No defect report added.</p></section>
-          <section class="panel detail-panel" aria-labelledby="links-title"><div class="section-heading"><div><p class="eyebrow">References</p><h2 id="links-title">IMP links</h2></div><button type="button" class="secondary-btn" id="add-link">Add link</button></div><ul class="link-list" id="link-list"></ul><p class="muted empty-inline" id="empty-links">No links added.</p></section>
-          <details class="panel detail-panel milestone-panel" id="milestones-details" open><summary><span><span class="eyebrow">Schedule</span><strong>Milestones</strong></span><span class="summary-hint">Expand or collapse</span></summary><div class="milestone-content"><div class="section-heading"><p class="muted">Key checkpoints for this project.</p><button type="button" class="secondary-btn" id="add-milestone">Add milestone</button></div><ul class="milestone-list" id="milestone-list"></ul><p class="muted empty-inline" id="empty-milestones">No milestones added.</p></div></details>
+      <div class="page-heading">
+        <div>
+          <p class="eyebrow">Project overview</p>
+          <h1>Tamilnad Mercantile Bank Limited (TMB)</h1>
+          <p class="intro">Project team, schedule, details, and audit milestones.</p>
         </div>
+        <span class="project-badge">Active project</span>
+      </div>
+
+      <section id="project-card" class="project-card grid-layout" aria-label="TMB project information">
+        <article class="info-panel project-name-panel">
+          <p class="eyebrow">Project name</p>
+          <h2>Tamilnad Mercantile Bank Limited (TMB)</h2>
+        </article>
+
+        <article class="info-panel team-panel">
+          <p class="eyebrow">Team</p>
+          <ul class="team-list" aria-label="Project team members">
+            <li>Hariom</li>
+            <li>Abha</li>
+            <li>Raveena</li>
+          </ul>
+        </article>
+
+        <article class="info-panel schedule-panel">
+          <p class="eyebrow">Project schedule</p>
+          <dl class="date-list">
+            <div><dt>Start date</dt><dd><time datetime="2026-08-28">28 August 2026</time></dd></div>
+            <div><dt>End date</dt><dd><time datetime="2027-01-31">31 January 2027</time></dd></div>
+          </dl>
+        </article>
+
+        <article class="info-panel details-panel">
+          <p class="eyebrow">Details</p>
+          <h2>TMB Audit Details</h2>
+        </article>
+
+        <article class="info-panel milestone-panel">
+          <p class="eyebrow">Audit schedule</p>
+          <h2>Milestone</h2>
+          <div class="milestone-controls">
+            <label for="milestone-select">Milestone</label>
+            <select id="milestone-select" name="milestone">
+              <option value="round-1">Round 1</option>
+              <option value="round-2">Round 2</option>
+            </select>
+            <div id="iteration-field" class="iteration-field" hidden>
+              <label for="iteration-select">Round 2 iteration</label>
+              <select id="iteration-select" name="iteration">
+                <option value="iteration-1">Iteration 1</option>
+                <option value="iteration-2">Iteration 2</option>
+              </select>
+            </div>
+          </div>
+          <p class="selection-summary" id="selection-summary" aria-live="polite">Selected: Round 1</p>
+        </article>
       </section>
-      <p class="privacy-note"><strong>Storage:</strong> Project and task information is stored in this browser on this device. It is not shared with other users.</p>
     </main>
-    <dialog id="project-dialog" aria-labelledby="project-dialog-title"><form id="project-form" class="dialog-form"><div class="dialog-header"><div><p class="eyebrow">Project setup</p><h2 id="project-dialog-title">Create project</h2></div><button type="button" class="icon-btn" data-close="project-dialog" aria-label="Close dialog">×</button></div><label class="field">Project name <span class="required-mark">Required</span><input name="name" type="text" maxlength="120" required /></label><label class="field">Owner <span class="muted">Optional</span><input name="owner" type="text" maxlength="100" /></label><label class="field">Status<select name="status"><option value="planning">Planning</option><option value="in-progress">In progress</option><option value="on-hold">On hold</option><option value="complete">Complete</option></select></label><div class="date-fields"><label class="field">Start date <span class="muted">Optional</span><input type="date" name="startDate" /></label><label class="field">End date <span class="muted">Optional</span><input type="date" name="endDate" /></label></div><div class="dialog-actions"><button type="button" class="secondary-btn" data-close="project-dialog">Cancel</button><button type="submit" class="primary-btn">Save project</button></div></form></dialog>
-    <dialog id="resource-dialog" aria-labelledby="resource-dialog-title"><form id="resource-form" class="dialog-form"><div class="dialog-header"><h2 id="resource-dialog-title">Add team resource</h2><button type="button" class="icon-btn" data-close="resource-dialog" aria-label="Close dialog">×</button></div><label class="field">Resource name <span class="required-mark">Required</span><input name="name" type="text" maxlength="100" required /></label><div class="dialog-actions"><button type="button" class="secondary-btn" data-close="resource-dialog">Cancel</button><button type="submit" class="primary-btn">Add resource</button></div></form></dialog>
-    <dialog id="text-dialog" aria-labelledby="text-dialog-title"><form id="text-form" class="dialog-form"><div class="dialog-header"><h2 id="text-dialog-title">Edit project details</h2><button type="button" class="icon-btn" data-close="text-dialog" aria-label="Close dialog">×</button></div><label class="field" id="text-field-label">Details<textarea name="text" rows="6" maxlength="3000"></textarea></label><div class="dialog-actions"><button type="button" class="secondary-btn" data-close="text-dialog">Cancel</button><button type="submit" class="primary-btn">Save</button></div></form></dialog>
-    <dialog id="module-dialog" aria-labelledby="module-dialog-title"><form id="module-form" class="dialog-form"><div class="dialog-header"><h2 id="module-dialog-title">Add module</h2><button type="button" class="icon-btn" data-close="module-dialog" aria-label="Close dialog">×</button></div><label class="field">Module name <span class="required-mark">Required</span><input name="name" type="text" maxlength="120" required /></label><label class="field">Submodules <span class="muted">Optional; add one per line</span><textarea name="submodules" rows="4"></textarea></label><div class="dialog-actions"><button type="button" class="secondary-btn" data-close="module-dialog">Cancel</button><button type="submit" class="primary-btn">Save module</button></div></form></dialog>
-    <dialog id="submodule-dialog" aria-labelledby="submodule-dialog-title"><form id="submodule-form" class="dialog-form"><div class="dialog-header"><h2 id="submodule-dialog-title">Add submodule</h2><button type="button" class="icon-btn" data-close="submodule-dialog" aria-label="Close dialog">×</button></div><label class="field">Submodule name <span class="required-mark">Required</span><input name="name" type="text" maxlength="120" required /></label><div class="dialog-actions"><button type="button" class="secondary-btn" data-close="submodule-dialog">Cancel</button><button type="submit" class="primary-btn">Add submodule</button></div></form></dialog>
-    <dialog id="link-dialog" aria-labelledby="link-dialog-title"><form id="link-form" class="dialog-form"><div class="dialog-header"><h2 id="link-dialog-title">Add IMP link</h2><button type="button" class="icon-btn" data-close="link-dialog" aria-label="Close dialog">×</button></div><label class="field">Visual text <span class="required-mark">Required</span><input name="label" type="text" maxlength="120" required /></label><label class="field">URL <span class="required-mark">Required</span><input name="url" type="url" placeholder="https://example.com" required /></label><div class="dialog-actions"><button type="button" class="secondary-btn" data-close="link-dialog">Cancel</button><button type="submit" class="primary-btn">Add link</button></div></form></dialog>
-    <dialog id="milestone-dialog" aria-labelledby="milestone-dialog-title"><form id="milestone-form" class="dialog-form"><div class="dialog-header"><h2 id="milestone-dialog-title">Add milestone</h2><button type="button" class="icon-btn" data-close="milestone-dialog" aria-label="Close dialog">×</button></div><label class="field">Milestone <span class="required-mark">Required</span><input name="name" type="text" maxlength="150" required /></label><label class="field">Date <span class="muted">Optional</span><input name="date" type="date" /></label><label class="field">URL <span class="muted">Optional</span><input name="url" type="url" placeholder="https://example.com" /></label><div class="dialog-actions"><button type="button" class="secondary-btn" data-close="milestone-dialog">Cancel</button><button type="submit" class="primary-btn">Add milestone</button></div></form></dialog>
-    <script src="script.js" defer></script>
   </body>
 </html>
