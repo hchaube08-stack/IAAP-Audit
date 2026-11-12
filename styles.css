@@ -44,7 +44,8 @@ h1, h2, p { overflow-wrap: anywhere; }
 .view-controls { display: inline-flex; overflow: hidden; border: 1px solid var(--border); border-radius: .65rem; background: white; }
 .view-button { min-height: 42px; padding: .55rem .85rem; color: var(--ink); background: white; border: 0; cursor: pointer; }
 .view-button + .view-button { border-left: 1px solid var(--border); }
-.view-button.is-active { color: white; background: var(--primary); }
+.view-button:hover { background: #eef4ff; }
+.view-button.is-active, .view-button.is-active:hover { color: white; background: var(--primary); }
 .project-card { display: grid; gap: 1rem; }
 .project-card.grid-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .info-panel { min-width: 0; padding: 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: 1rem; box-shadow: 0 5px 18px rgb(23 42 58 / 5%); }

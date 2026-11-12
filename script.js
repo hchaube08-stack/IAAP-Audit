@@ -1,26 +1,27 @@
 (() => {
   'use strict';
 
-  const projectCard = document.querySelector('#project-card');
-  const gridButton = document.querySelector('#grid-view');
-  const listButton = document.querySelector('#list-view');
-  const milestoneSelect = document.querySelector('#milestone-select');
-  const iterationField = document.querySelector('#iteration-field');
-  const iterationSelect = document.querySelector('#iteration-select');
-  const selectionSummary = document.querySelector('#selection-summary');
+  const projectCard = document.getElementById('project-card');
+  const gridButton = document.getElementById('grid-view');
+  const listButton = document.getElementById('list-view');
+  const milestoneSelect = document.getElementById('milestone-select');
+  const iterationField = document.getElementById('iteration-field');
+  const iterationSelect = document.getElementById('iteration-select');
+  const selectionSummary = document.getElementById('selection-summary');
 
   function setView(view) {
     const isGrid = view === 'grid';
-    projectCard.classList.toggle('grid-layout', isGrid);
-    projectCard.classList.toggle('list-layout', !isGrid);
+    projectCard.classList.remove('grid-layout', 'list-layout');
+    projectCard.classList.add(isGrid ? 'grid-layout' : 'list-layout');
     gridButton.classList.toggle('is-active', isGrid);
     listButton.classList.toggle('is-active', !isGrid);
     gridButton.setAttribute('aria-pressed', String(isGrid));
     listButton.setAttribute('aria-pressed', String(!isGrid));
+
     try {
-      localStorage.setItem('tmb-project-view', view);
+      localStorage.setItem('saransh-project-view', view);
     } catch {
-      // The view switch still works when browser storage is unavailable.
+      // View switching still works when browser storage is unavailable.
     }
   }
 
@@ -37,12 +38,12 @@
   milestoneSelect.addEventListener('change', updateMilestone);
   iterationSelect.addEventListener('change', updateMilestone);
 
-  let savedView = 'grid';
+  let initialView = 'grid';
   try {
-    savedView = localStorage.getItem('tmb-project-view') === 'list' ? 'list' : 'grid';
+    initialView = localStorage.getItem('saransh-project-view') === 'list' ? 'list' : 'grid';
   } catch {
-    // Use grid view when browser storage is unavailable.
+    // Default to grid view when browser storage is unavailable.
   }
-  setView(savedView);
+  setView(initialView);
   updateMilestone();
 })();
