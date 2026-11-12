@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="IAAP project management dashboard for accessible planning, reviews, and audit tracking."
+    />
+    <title>IAAP Project Hub</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="topbar" aria-label="Site header">
+      <div class="brand" aria-label="IAAP home">
+        <div class="brand-mark" aria-hidden="true">IA</div>
+        <div>
+          <p class="eyebrow">IAAP</p>
+          <h1>Project Hub</h1>
+        </div>
+      </div>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#overview">Overview</a>
+        <a href="#board">Board</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#checklist">Checklist</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="secondary-btn">Export report</button>
+        <button type="button" class="primary-btn" id="open-task-dialog">Create task</button>
+      </div>
+    </header>
+
+    <main id="main-content" class="page-shell">
+      <section class="hero panel" id="overview" aria-labelledby="overview-title">
+        <div>
+          <p class="eyebrow">Accessibility delivery</p>
+          <h2 id="overview-title">Q3 accessibility initiatives overview</h2>
+          <p class="hero-copy">
+            Track the IAAP delivery plan, keep accessibility risk under control,
+            and ensure every milestone is visible to the team.
+          </p>
+        </div>
+
+        <div class="status-pill" aria-label="Project status: Green">
+          <span class="status-dot" aria-hidden="true"></span>
+          On track
+        </div>
+      </section>
+
+      <section class="stats" aria-label="Project summary metrics">
+        <article class="stat-card panel">
+          <p>Active projects</p>
+          <strong>14</strong>
+          <span>+3 this month</span>
+        </article>
+        <article class="stat-card panel">
+          <p>Open tasks</p>
+          <strong>27</strong>
+          <span>6 high priority</span>
+        </article>
+        <article class="stat-card panel">
+          <p>Compliance score</p>
+          <strong>92%</strong>
+          <span>Up from 87%</span>
+        </article>
+        <article class="stat-card panel">
+          <p>Launch readiness</p>
+          <strong>84%</strong>
+          <span>3 milestones remaining</span>
+        </article>
+      </section>
+
+      <section class="board-section panel" id="board" aria-labelledby="board-title">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Operations</p>
+            <h2 id="board-title">Accessibility task board</h2>
+          </div>
+
+          <div class="filter-group" role="toolbar" aria-label="Task filter controls">
+            <button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" class="filter-btn" data-filter="in-review" aria-pressed="false">In review</button>
+            <button type="button" class="filter-btn" data-filter="blocked" aria-pressed="false">Blocked</button>
+            <button type="button" class="filter-btn" data-filter="done" aria-pressed="false">Done</button>
+          </div>
+        </div>
+
+        <div class="task-grid" id="task-grid" aria-live="polite">
+          <article class="task-card" data-status="in-review" tabindex="0" aria-label="Task: Review accessibility policy. Status: in review.">
+            <div class="task-meta">
+              <span class="status-tag status-review">In review</span>
+              <span class="task-id">A11Y-104</span>
+            </div>
+            <h3>Review accessibility policy</h3>
+            <p>Confirm language updates and accessibility requirements are reflected in the revised policy.</p>
+            <ul>
+              <li>Owner: Olivia</li>
+              <li>Due: Jul 18</li>
+            </ul>
+          </article>
+
+          <article class="task-card" data-status="blocked" tabindex="0" aria-label="Task: Resolve keyboard trap. Status: blocked.">
+            <div class="task-meta">
+              <span class="status-tag status-blocked">Blocked</span>
+              <span class="task-id">A11Y-219</span>
+            </div>
+            <h3>Resolve keyboard trap</h3>
+            <p>Fix focus order issue discovered in the project intake flow before the next release window.</p>
+            <ul>
+              <li>Owner: Marcus</li>
+              <li>Due: Jul 20</li>
+            </ul>
+          </article>
+
+          <article class="task-card" data-status="done" tabindex="0" aria-label="Task: Update screen reader labels. Status: done.">
+            <div class="task-meta">
+              <span class="status-tag status-done">Done</span>
+              <span class="task-id">A11Y-118</span>
+            </div>
+            <h3>Update screen reader labels</h3>
+            <p>Improve naming for dashboard actions and status notifications across the project workspace.</p>
+            <ul>
+              <li>Owner: Priya</li>
+              <li>Complete</li>
+            </ul>
+          </article>
+
+          <article class="task-card" data-status="in-review" tabindex="0" aria-label="Task: Validate contrast changes. Status: in review.">
+            <div class="task-meta">
+              <span class="status-tag status-review">In review</span>
+              <span class="task-id">A11Y-234</span>
+            </div>
+            <h3>Validate contrast changes</h3>
+            <p>Review the final pass for color contrast and luminosity ratio updates across all interfaces.</p>
+            <ul>
+              <li>Owner: Elena</li>
+              <li>Due: Jul 22</li>
+            </ul>
+          </article>
+
+          <article class="task-card" data-status="blocked" tabindex="0" aria-label="Task: Secure alternate text process. Status: blocked.">
+            <div class="task-meta">
+              <span class="status-tag status-blocked">Blocked</span>
+              <span class="task-id">A11Y-246</span>
+            </div>
+            <h3>Secure alternate text process</h3>
+            <p>Finalize content ownership and review workflow for image descriptions across the knowledge base.</p>
+            <ul>
+              <li>Owner: Jonah</li>
+              <li>Due: Jul 24</li>
+            </ul>
+          </article>
+
+          <article class="task-card" data-status="done" tabindex="0" aria-label="Task: Launch audit checklist. Status: done.">
+            <div class="task-meta">
+              <span class="status-tag status-done">Done</span>
+              <span class="task-id">A11Y-176</span>
+            </div>
+            <h3>Launch audit checklist</h3>
+            <p>Publish the central audit checklist to guide project managers through accessibility review steps.</p>
+            <ul>
+              <li>Owner: Sam</li>
+              <li>Complete</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="insights-grid" id="timeline">
+        <article class="panel" aria-labelledby="timeline-title">
+          <div class="section-header compact">
+            <h2 id="timeline-title">Delivery timeline</h2>
+          </div>
+          <ul class="timeline-list">
+            <li>
+              <span class="time-badge">Jul 12</span>
+              <div>
+                <strong>Accessibility intake review</strong>
+                <p>Finalize requirements and sign off baseline plan.</p>
+              </div>
+            </li>
+            <li>
+              <span class="time-badge">Jul 18</span>
+              <div>
+                <strong>Policy update approval</strong>
+                <p>Complete stakeholder review and publish the revised policy draft.</p>
+              </div>
+            </li>
+            <li>
+              <span class="time-badge">Jul 26</span>
+              <div>
+                <strong>Design and code validation</strong>
+                <p>Perform QA on keyboard flow, contrast, and screen-reader announcements.</p>
+              </div>
+            </li>
+          </ul>
+        </article>
+
+        <article class="panel" aria-labelledby="capacity-title">
+          <div class="section-header compact">
+            <h2 id="capacity-title">Team capacity</h2>
+          </div>
+          <ul class="capacity-list" aria-label="Team capacity overview">
+            <li>
+              <div class="person-row">
+                <span>Olivia</span>
+                <span>82%</span>
+              </div>
+              <div class="capacity-bar" aria-hidden="true"><span style="width: 82%"></span></div>
+            </li>
+            <li>
+              <div class="person-row">
+                <span>Marcus</span>
+                <span>64%</span>
+              </div>
+              <div class="capacity-bar" aria-hidden="true"><span style="width: 64%"></span></div>
+            </li>
+            <li>
+              <div class="person-row">
+                <span>Priya</span>
+                <span>91%</span>
+              </div>
+              <div class="capacity-bar" aria-hidden="true"><span style="width: 91%"></span></div>
+            </li>
+            <li>
+              <div class="person-row">
+                <span>Elena</span>
+                <span>76%</span>
+              </div>
+              <div class="capacity-bar" aria-hidden="true"><span style="width: 76%"></span></div>
+            </li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="panel" id="checklist" aria-labelledby="checklist-title">
+        <div class="section-header compact">
+          <h2 id="checklist-title">Audit checklist</h2>
+        </div>
+
+        <form class="checklist" aria-label="Project audit checklist">
+          <label><input type="checkbox" checked /> Keyboard navigation review</label>
+          <label><input type="checkbox" checked /> Focus order validation</label>
+          <label><input type="checkbox" checked /> Color contrast audit</label>
+          <label><input type="checkbox" /> Content hierarchy review</label>
+          <label><input type="checkbox" /> Alt text verification</label>
+          <label><input type="checkbox" /> Error message clarity check</label>
+        </form>
+      </section>
+    </main>
+
+    <dialog id="task-dialog" aria-labelledby="dialog-title">
+      <form method="dialog" class="dialog-form" id="task-form">
+        <div class="dialog-header">
+          <h2 id="dialog-title">Create new task</h2>
+          <button type="button" class="icon-btn" id="close-task-dialog" aria-label="Close dialog">×</button>
+        </div>
+
+        <label>
+          Task title
+          <input type="text" name="title" placeholder="e.g. Review accessibility training" required />
+        </label>
+
+        <label>
+          Owner
+          <input type="text" name="owner" placeholder="Assign a team member" required />
+        </label>
+
+        <label>
+          Status
+          <select name="status" aria-label="Task status">
+            <option value="in-review">In review</option>
+            <option value="blocked">Blocked</option>
+            <option value="done">Done</option>
+          </select>
+        </label>
+
+        <label>
+          Due date
+          <input type="date" name="date" />
+        </label>
+
+        <div class="dialog-actions">
+          <button type="button" class="secondary-btn" id="cancel-task-dialog">Cancel</button>
+          <button type="submit" class="primary-btn">Save task</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
