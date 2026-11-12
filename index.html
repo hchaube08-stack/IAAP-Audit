@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Create projects, manage project details, and keep related files together." />
+    <meta name="description" content="Create projects, manage project tasks, and update related files." />
     <title>Project Hub</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -20,13 +20,10 @@
     <main id="main-content" class="app-layout">
       <aside class="sidebar" aria-labelledby="projects-title">
         <div class="sidebar-heading">
-          <div>
-            <p class="eyebrow">Workspace</p>
-            <h1 id="projects-title">Projects</h1>
-          </div>
+          <div><p class="eyebrow">Workspace</p><h1 id="projects-title">Projects</h1></div>
           <button type="button" class="primary-btn" id="new-project">New project</button>
         </div>
-        <p class="sidebar-help">Choose a project to view its details and related files.</p>
+        <p class="sidebar-help">Select a project to see its tasks.</p>
         <ul class="project-list" id="project-list" aria-label="Your projects"></ul>
         <p class="empty-list" id="empty-project-list">No projects yet. Create one to get started.</p>
       </aside>
@@ -36,42 +33,21 @@
           <div>
             <p class="eyebrow">Project workspace</p>
             <h2 id="workspace-title">Create or update a project</h2>
-            <p class="intro">Keep project information and its working files together in one place.</p>
+            <p class="intro">Keep project information, tasks, and working files together.</p>
           </div>
         </div>
-
         <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
 
         <section class="panel project-panel" aria-labelledby="details-title">
           <div class="section-heading">
-            <div>
-              <p class="eyebrow">Project information</p>
-              <h3 id="details-title">New project</h3>
-            </div>
+            <div><p class="eyebrow">Project information</p><h3 id="details-title">New project</h3></div>
             <button type="button" class="danger-btn" id="delete-project" hidden>Delete project</button>
           </div>
           <form id="project-form" class="project-form">
-            <label class="field">
-              Project name
-              <input name="name" type="text" maxlength="100" placeholder="e.g. Website accessibility audit" required />
-            </label>
-            <label class="field">
-              Owner
-              <input name="owner" type="text" maxlength="80" placeholder="Who is leading this project?" />
-            </label>
-            <label class="field">
-              Status
-              <select name="status">
-                <option value="planning">Planning</option>
-                <option value="in-progress">In progress</option>
-                <option value="on-hold">On hold</option>
-                <option value="complete">Complete</option>
-              </select>
-            </label>
-            <label class="field">
-              Description
-              <textarea name="description" rows="4" maxlength="1000" placeholder="Goals, scope, and useful context"></textarea>
-            </label>
+            <label class="field">Project name<input name="name" type="text" maxlength="100" placeholder="e.g. Website accessibility audit" required /></label>
+            <label class="field">Owner<input name="owner" type="text" maxlength="80" placeholder="Who is leading this project?" /></label>
+            <label class="field">Status<select name="status"><option value="planning">Planning</option><option value="in-progress">In progress</option><option value="on-hold">On hold</option><option value="complete">Complete</option></select></label>
+            <label class="field">Description<textarea name="description" rows="4" maxlength="1000" placeholder="Goals, scope, and useful context"></textarea></label>
             <div class="form-actions">
               <button type="submit" class="primary-btn" id="save-project">Create project</button>
               <button type="button" class="secondary-btn" id="reset-project" hidden>Cancel</button>
@@ -79,23 +55,32 @@
           </form>
         </section>
 
+        <section class="panel tasks-panel" id="tasks-panel" aria-labelledby="tasks-title" hidden>
+          <div class="section-heading"><div><p class="eyebrow">Project work</p><h3 id="tasks-title">Tasks</h3></div></div>
+          <form id="task-form" class="task-form">
+            <label class="field">Task name<input name="title" type="text" maxlength="120" placeholder="e.g. Review keyboard navigation" required /></label>
+            <label class="field">Description<input name="description" type="text" maxlength="300" placeholder="Optional task details" /></label>
+            <button type="submit" class="primary-btn">Create task</button>
+          </form>
+          <p class="section-copy">Select a task to open its related files for upload, replacement, or download.</p>
+          <ul class="task-list" id="task-list" aria-label="Tasks for this project"></ul>
+          <p class="empty-files" id="empty-tasks">No tasks yet. Create the first task for this project.</p>
+        </section>
+
         <section class="panel files-panel" id="files-panel" aria-labelledby="files-title" hidden>
           <div class="section-heading">
-            <div>
-              <p class="eyebrow">Project resources</p>
-              <h3 id="files-title">Files</h3>
-            </div>
+            <div><p class="eyebrow">Selected task</p><h3 id="files-title">Task files</h3></div>
             <label for="file-picker" class="primary-btn upload-label">Add files</label>
             <input id="file-picker" class="visually-hidden" type="file" multiple />
           </div>
-          <p class="section-copy">Files are stored privately in this browser. You can download, replace, or remove each file.</p>
-          <ul class="file-list" id="file-list" aria-label="Files for this project"></ul>
-          <p class="empty-files" id="empty-files">No files attached yet. Select “Add files” to upload project resources.</p>
+          <p class="section-copy" id="selected-task-description">Files attached to this task.</p>
+          <ul class="file-list" id="file-list" aria-label="Files for selected task"></ul>
+          <p class="empty-files" id="empty-files">No files attached to this task yet.</p>
         </section>
-        <p class="privacy-note"><strong>About storage:</strong> This is a static GitHub Pages app. Project data and uploaded files are stored only in this browser on this device; they are not uploaded to GitHub or shared with other users.</p>
+
+        <p class="privacy-note"><strong>About storage:</strong> This static GitHub Pages app stores project data and uploaded files only in this browser on this device. They are not uploaded to GitHub or shared with other users.</p>
       </section>
     </main>
-
     <script src="script.js"></script>
   </body>
 </html>
