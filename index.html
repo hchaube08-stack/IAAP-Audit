@@ -1,84 +1,133 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Project overview and audit milestones for Saransh." />
-    <title>Saransh Audit Project</title>
+    <meta name="description" content="Audit project dashboard for Saransh and TMB." />
+    <title>Audit Project Dashboard</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="topbar">
-      <a class="brand" href="#main-content" aria-label="Saransh Audit project home">
-        <span class="brand-mark" aria-hidden="true">SA</span>
-        <span><span class="eyebrow">Project workspace</span><strong>Saransh Audit</strong></span>
-      </a>
+      <div class="brand" aria-label="Audit dashboard home">
+        <span class="brand-mark" aria-hidden="true">A</span>
+        <div>
+          <p class="eyebrow">Audit Hub</p>
+          <h1>Project Dashboard</h1>
+        </div>
+      </div>
+
       <div class="view-controls" role="group" aria-label="Project display options">
-        <button type="button" class="view-button is-active" id="grid-view" aria-pressed="true" aria-controls="project-card">Grid view</button>
-        <button type="button" class="view-button" id="list-view" aria-pressed="false" aria-controls="project-card">List view</button>
+        <button type="button" class="view-button is-active" id="grid-view" aria-pressed="true">Grid view</button>
+        <button type="button" class="view-button" id="list-view" aria-pressed="false">List view</button>
       </div>
     </header>
 
-    <main id="main-content" class="page-shell">
+    <main class="page-shell">
       <div class="page-heading">
         <div>
-          <p class="eyebrow">Project overview</p>
-          <h1>Saransh</h1>
-          <p class="intro">Project team, schedule, details, and audit milestones.</p>
+          <p class="eyebrow">Projects</p>
+          <h2>Audit portfolio</h2>
         </div>
-        <span class="project-badge">Active project</span>
+        <span class="status-pill">2 active projects</span>
       </div>
 
-      <section id="project-card" class="project-card grid-layout" aria-label="Saransh project information">
-        <article class="info-panel project-name-panel">
-          <p class="eyebrow">Project name</p>
-          <h2>Saransh</h2>
-        </article>
+      <div class="projects-grid" id="projects-grid">
+        <article class="audit-card" data-project="saransh">
+          <div class="card-header">
+            <div>
+              <p class="eyebrow">Project name</p>
+              <h3>Saransh</h3>
+            </div>
+            <span class="status-badge">Active</span>
+          </div>
 
-        <article class="info-panel team-panel">
-          <p class="eyebrow">Team</p>
-          <ul class="team-list" aria-label="Project team members">
-            <li>Hariom</li>
-            <li>Abhay</li>
-            <li>Raveena</li>
-          </ul>
-        </article>
+          <div class="meta-group">
+            <div class="meta-row">
+              <span class="meta-label">Team</span>
+              <span>Hariom, Abhay, Raveena</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">Start date</span>
+              <span>04 Nov 2026</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">End date</span>
+              <span>31 Jan 2027</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">Details</span>
+              <span>Saransh Audit Details</span>
+            </div>
+          </div>
 
-        <article class="info-panel schedule-panel">
-          <p class="eyebrow">Project schedule</p>
-          <dl class="date-list">
-            <div><dt>Start date</dt><dd><time datetime="2026-11-04">04 November 2026</time></dd></div>
-            <div><dt>End date</dt><dd><time datetime="2027-01-31">31 January 2027</time></dd></div>
-          </dl>
-        </article>
-
-        <article class="info-panel details-panel">
-          <p class="eyebrow">Details</p>
-          <h2>Saransh Audit Details</h2>
-        </article>
-
-        <article class="info-panel milestone-panel">
-          <p class="eyebrow">Audit schedule</p>
-          <h2>Milestone</h2>
-          <div class="milestone-controls">
-            <label for="milestone-select">Milestone</label>
-            <select id="milestone-select" name="milestone">
+          <div class="milestone-block">
+            <label for="saransh-milestone">Milestone</label>
+            <select id="saransh-milestone" class="milestone-select" aria-label="Saransh milestone">
               <option value="round-1">Round 1</option>
               <option value="round-2">Round 2</option>
             </select>
-            <div id="iteration-field" class="iteration-field" hidden>
-              <label for="iteration-select">Round 2 iteration</label>
-              <select id="iteration-select" name="iteration">
-                <option value="iteration-1">Iteration 1</option>
-                <option value="iteration-2">Iteration 2</option>
+
+            <div class="iteration-wrap" hidden>
+              <label for="saransh-iteration">Iteration</label>
+              <select id="saransh-iteration" class="iteration-select" aria-label="Saransh round 2 iteration">
+                <option value="Iteration 1">Iteration 1</option>
+                <option value="Iteration 2">Iteration 2</option>
               </select>
             </div>
+
+            <p class="selection-text" aria-live="polite">Selected: Round 1</p>
           </div>
-          <p class="selection-summary" id="selection-summary" aria-live="polite">Selected: Round 1</p>
         </article>
-      </section>
+
+        <article class="audit-card" data-project="tmb">
+          <div class="card-header">
+            <div>
+              <p class="eyebrow">Project name</p>
+              <h3>Tamilnad Mercantile Bank Limited (TMB)</h3>
+            </div>
+            <span class="status-badge">Active</span>
+          </div>
+
+          <div class="meta-group">
+            <div class="meta-row">
+              <span class="meta-label">Team</span>
+              <span>Hariom, Abha, Raveena</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">Start date</span>
+              <span>28 Aug 2026</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">End date</span>
+              <span>31 Jan 2027</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">Details</span>
+              <span>TMB Audit Details</span>
+            </div>
+          </div>
+
+          <div class="milestone-block">
+            <label for="tmb-milestone">Milestone</label>
+            <select id="tmb-milestone" class="milestone-select" aria-label="TMB milestone">
+              <option value="round-1">Round 1</option>
+              <option value="round-2">Round 2</option>
+            </select>
+
+            <div class="iteration-wrap" hidden>
+              <label for="tmb-iteration">Iteration</label>
+              <select id="tmb-iteration" class="iteration-select" aria-label="TMB round 2 iteration">
+                <option value="Iteration 1">Iteration 1</option>
+                <option value="Iteration 2">Iteration 2</option>
+              </select>
+            </div>
+
+            <p class="selection-text" aria-live="polite">Selected: Round 1</p>
+          </div>
+        </article>
+      </div>
     </main>
   </body>
 </html>
