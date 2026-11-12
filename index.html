@@ -3,84 +3,59 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Create projects, manage project tasks, and update related files." />
+    <meta name="description" content="A simple workspace for tracking projects, teams, modules, defects, links, and milestones." />
     <title>Project Hub</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="topbar">
-      <a class="brand" href="#main-content" aria-label="Project Hub home">
-        <span class="brand-mark" aria-hidden="true">PH</span>
-        <span><span class="eyebrow">Workspace</span><strong>Project Hub</strong></span>
-      </a>
-      <p class="storage-note">Your projects and files are saved in this browser.</p>
+      <a class="brand" href="#main-content" aria-label="Project Hub home"><span class="brand-mark" aria-hidden="true">PH</span><span><span class="eyebrow">Workspace</span><strong>Project Hub</strong></span></a>
+      <p class="storage-note">Projects are saved in this browser.</p>
     </header>
 
-    <main id="main-content" class="app-layout">
-      <aside class="sidebar" aria-labelledby="projects-title">
-        <div class="sidebar-heading">
-          <div><p class="eyebrow">Workspace</p><h1 id="projects-title">Projects</h1></div>
-          <button type="button" class="primary-btn" id="new-project">New project</button>
-        </div>
-        <p class="sidebar-help">Select a project to see its tasks.</p>
-        <ul class="project-list" id="project-list" aria-label="Your projects"></ul>
-        <p class="empty-list" id="empty-project-list">No projects yet. Create one to get started.</p>
-      </aside>
-
-      <section class="workspace" aria-labelledby="workspace-title">
+    <main id="main-content" class="page-shell">
+      <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+      <section id="projects-view" aria-labelledby="projects-title">
         <div class="page-heading">
-          <div>
-            <p class="eyebrow">Project workspace</p>
-            <h2 id="workspace-title">Create or update a project</h2>
-            <p class="intro">Keep project information, tasks, and working files together.</p>
-          </div>
+          <div><p class="eyebrow">Workspace</p><h1 id="projects-title">Projects</h1><p class="intro">Create a project and keep its team, modules, links, and milestones organized.</p></div>
+          <div class="heading-actions"><div class="view-toggle" role="group" aria-label="Project display options"><button type="button" class="view-button is-active" id="grid-view" aria-pressed="true">Grid view</button><button type="button" class="view-button" id="list-view" aria-pressed="false">List view</button></div><button type="button" class="primary-btn" id="open-create-project">Create project</button></div>
         </div>
-        <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
-
-        <section class="panel project-panel" aria-labelledby="details-title">
-          <div class="section-heading">
-            <div><p class="eyebrow">Project information</p><h3 id="details-title">New project</h3></div>
-            <button type="button" class="danger-btn" id="delete-project" hidden>Delete project</button>
-          </div>
-          <form id="project-form" class="project-form">
-            <label class="field">Project name<input name="name" type="text" maxlength="100" placeholder="e.g. Website accessibility audit" required /></label>
-            <label class="field">Owner<input name="owner" type="text" maxlength="80" placeholder="Who is leading this project?" /></label>
-            <label class="field">Status<select name="status"><option value="planning">Planning</option><option value="in-progress">In progress</option><option value="on-hold">On hold</option><option value="complete">Complete</option></select></label>
-            <label class="field">Description<textarea name="description" rows="4" maxlength="1000" placeholder="Goals, scope, and useful context"></textarea></label>
-            <div class="form-actions">
-              <button type="submit" class="primary-btn" id="save-project">Create project</button>
-              <button type="button" class="secondary-btn" id="reset-project" hidden>Cancel</button>
-            </div>
-          </form>
-        </section>
-
-        <section class="panel tasks-panel" id="tasks-panel" aria-labelledby="tasks-title" hidden>
-          <div class="section-heading"><div><p class="eyebrow">Project work</p><h3 id="tasks-title">Tasks</h3></div></div>
-          <form id="task-form" class="task-form">
-            <label class="field">Task name<input name="title" type="text" maxlength="120" placeholder="e.g. Review keyboard navigation" required /></label>
-            <label class="field">Description<input name="description" type="text" maxlength="300" placeholder="Optional task details" /></label>
-            <button type="submit" class="primary-btn">Create task</button>
-          </form>
-          <p class="section-copy">Select a task to open its related files for upload, replacement, or download.</p>
-          <ul class="task-list" id="task-list" aria-label="Tasks for this project"></ul>
-          <p class="empty-files" id="empty-tasks">No tasks yet. Create the first task for this project.</p>
-        </section>
-
-        <section class="panel files-panel" id="files-panel" aria-labelledby="files-title" hidden>
-          <div class="section-heading">
-            <div><p class="eyebrow">Selected task</p><h3 id="files-title">Task files</h3></div>
-            <label for="file-picker" class="primary-btn upload-label">Add files</label>
-            <input id="file-picker" class="visually-hidden" type="file" multiple />
-          </div>
-          <p class="section-copy" id="selected-task-description">Files attached to this task.</p>
-          <ul class="file-list" id="file-list" aria-label="Files for selected task"></ul>
-          <p class="empty-files" id="empty-files">No files attached to this task yet.</p>
-        </section>
-
-        <p class="privacy-note"><strong>About storage:</strong> This static GitHub Pages app stores project data and uploaded files only in this browser on this device. They are not uploaded to GitHub or shared with other users.</p>
+        <ul class="project-grid" id="project-list" aria-label="Projects"></ul>
+        <p class="empty-state panel" id="empty-projects">No projects yet. Select <strong>Create project</strong> to add one.</p>
       </section>
+
+      <section id="project-view" aria-labelledby="project-title" hidden>
+        <button type="button" class="back-button" id="back-to-projects">← All projects</button>
+        <div class="project-hero panel">
+          <div><p class="eyebrow">Project</p><h1 id="project-title"></h1><p class="date-range" id="project-dates"></p></div>
+          <button type="button" class="secondary-btn" id="edit-project">Edit project</button>
+        </div>
+        <div class="detail-grid">
+          <section class="panel detail-panel" aria-labelledby="team-title"><div class="section-heading"><div><p class="eyebrow">People</p><h2 id="team-title">Team</h2></div><button type="button" class="secondary-btn" id="add-resource">Add resource</button></div><ul class="chip-list" id="team-list"></ul><p class="muted empty-inline" id="empty-team">No team resources added.</p></section>
+          <section class="panel detail-panel" aria-labelledby="details-title"><div class="section-heading"><div><p class="eyebrow">Overview</p><h2 id="details-title">Project details</h2></div><button type="button" class="text-button" id="edit-details">Edit</button></div><p class="preserve-lines" id="details-content"></p><p class="muted empty-inline" id="empty-details">Add a short project overview.</p></section>
+          <section class="panel detail-panel wide-panel" aria-labelledby="modules-title"><div class="section-heading"><div><p class="eyebrow">Delivery scope</p><h2 id="modules-title">Modules &amp; submodules</h2></div><button type="button" class="secondary-btn" id="add-module">Add module</button></div><ul class="module-list" id="module-list"></ul><p class="muted empty-inline" id="empty-modules">No modules added.</p></section>
+          <section class="panel detail-panel wide-panel" aria-labelledby="defects-title"><div class="section-heading"><div><p class="eyebrow">Quality</p><h2 id="defects-title">Defect report</h2></div><button type="button" class="text-button" id="edit-defects">Edit</button></div><p class="preserve-lines" id="defects-content"></p><p class="muted empty-inline" id="empty-defects">No defect report added.</p></section>
+          <section class="panel detail-panel" aria-labelledby="links-title"><div class="section-heading"><div><p class="eyebrow">References</p><h2 id="links-title">IMP links</h2></div><button type="button" class="secondary-btn" id="add-link">Add link</button></div><ul class="link-list" id="link-list"></ul><p class="muted empty-inline" id="empty-links">No links added.</p></section>
+          <details class="panel detail-panel milestone-panel" id="milestones-details" open><summary><span><span class="eyebrow">Schedule</span><strong>Milestones</strong></span><span class="summary-hint">Expand or collapse</span></summary><div class="milestone-content"><div class="section-heading"><p class="muted">Key checkpoints for this project.</p><button type="button" class="secondary-btn" id="add-milestone">Add milestone</button></div><ul class="milestone-list" id="milestone-list"></ul><p class="muted empty-inline" id="empty-milestones">No milestones added.</p></div></details>
+        </div>
+      </section>
+      <p class="privacy-note"><strong>Storage:</strong> Project information is stored in this browser on this device. It is not shared with other users.</p>
     </main>
+
+    <dialog id="project-dialog" aria-labelledby="project-dialog-title"><form id="project-form" class="dialog-form"><div class="dialog-header"><div><p class="eyebrow">Project setup</p><h2 id="project-dialog-title">Create project</h2></div><button type="button" class="icon-btn" data-close="project-dialog" aria-label="Close dialog">×</button></div><label class="field">Project name <span class="required-mark">Required</span><input name="name" type="text" maxlength="120" required autofocus /></label><div class="date-fields"><label class="field">Start date <span class="muted">Optional</span><input type="date" name="startDate" /></label><label class="field">End date <span class="muted">Optional</span><input type="date" name="endDate" /></label></div><div class="dialog-actions"><button type="button" class="secondary-btn" data-close="project-dialog">Cancel</button><button type="submit" class="primary-btn">Save project</button></div></form></dialog>
+
+    <dialog id="resource-dialog" aria-labelledby="resource-dialog-title"><form id="resource-form" class="dialog-form"><div class="dialog-header"><h2 id="resource-dialog-title">Add team resource</h2><button type="button" class="icon-btn" data-close="resource-dialog" aria-label="Close dialog">×</button></div><label class="field">Resource name <span class="required-mark">Required</span><input name="name" type="text" maxlength="100" placeholder="Name of person or resource" required /></label><div class="dialog-actions"><button type="button" class="secondary-btn" data-close="resource-dialog">Cancel</button><button type="submit" class="primary-btn">Add resource</button></div></form></dialog>
+
+    <dialog id="text-dialog" aria-labelledby="text-dialog-title"><form id="text-form" class="dialog-form"><div class="dialog-header"><h2 id="text-dialog-title">Edit project details</h2><button type="button" class="icon-btn" data-close="text-dialog" aria-label="Close dialog">×</button></div><label class="field" id="text-field-label">Details<textarea name="text" rows="6" maxlength="3000"></textarea></label><div class="dialog-actions"><button type="button" class="secondary-btn" data-close="text-dialog">Cancel</button><button type="submit" class="primary-btn">Save</button></div></form></dialog>
+
+    <dialog id="module-dialog" aria-labelledby="module-dialog-title"><form id="module-form" class="dialog-form"><div class="dialog-header"><h2 id="module-dialog-title">Add module</h2><button type="button" class="icon-btn" data-close="module-dialog" aria-label="Close dialog">×</button></div><label class="field">Module name <span class="required-mark">Required</span><input name="name" type="text" maxlength="120" required /></label><label class="field">Submodules <span class="muted">Optional; add one per line</span><textarea name="submodules" rows="4" placeholder="Sign in&#10;Account settings"></textarea></label><div class="dialog-actions"><button type="button" class="secondary-btn" data-close="module-dialog">Cancel</button><button type="submit" class="primary-btn">Add module</button></div></form></dialog>
+
+    <dialog id="submodule-dialog" aria-labelledby="submodule-dialog-title"><form id="submodule-form" class="dialog-form"><div class="dialog-header"><h2 id="submodule-dialog-title">Add submodule</h2><button type="button" class="icon-btn" data-close="submodule-dialog" aria-label="Close dialog">×</button></div><label class="field">Submodule name <span class="required-mark">Required</span><input name="name" type="text" maxlength="120" required /></label><div class="dialog-actions"><button type="button" class="secondary-btn" data-close="submodule-dialog">Cancel</button><button type="submit" class="primary-btn">Add submodule</button></div></form></dialog>
+
+    <dialog id="link-dialog" aria-labelledby="link-dialog-title"><form id="link-form" class="dialog-form"><div class="dialog-header"><h2 id="link-dialog-title">Add IMP link</h2><button type="button" class="icon-btn" data-close="link-dialog" aria-label="Close dialog">×</button></div><label class="field">Visual text <span class="required-mark">Required</span><input name="label" type="text" maxlength="120" placeholder="Text shown for the link" required /></label><label class="field">URL <span class="required-mark">Required</span><input name="url" type="url" placeholder="https://example.com" required /></label><div class="dialog-actions"><button type="button" class="secondary-btn" data-close="link-dialog">Cancel</button><button type="submit" class="primary-btn">Add link</button></div></form></dialog>
+
+    <dialog id="milestone-dialog" aria-labelledby="milestone-dialog-title"><form id="milestone-form" class="dialog-form"><div class="dialog-header"><h2 id="milestone-dialog-title">Add milestone</h2><button type="button" class="icon-btn" data-close="milestone-dialog" aria-label="Close dialog">×</button></div><label class="field">Milestone <span class="required-mark">Required</span><input name="name" type="text" maxlength="150" required /></label><label class="field">URL <span class="muted">Optional</span><input name="url" type="url" placeholder="https://example.com" /></label><div class="dialog-actions"><button type="button" class="secondary-btn" data-close="milestone-dialog">Cancel</button><button type="submit" class="primary-btn">Add milestone</button></div></form></dialog>
     <script src="script.js"></script>
   </body>
 </html>
